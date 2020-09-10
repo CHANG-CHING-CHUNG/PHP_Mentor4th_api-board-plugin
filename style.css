@@ -1,0 +1,7 @@
+.font {
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+.disableBtn {
+  pointer-events: none;
+}
