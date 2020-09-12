@@ -2,6 +2,14 @@ let offset = 0;
 let siteKey = '';
 let apiUrl = '';
 let containerElments = null;
+const css = `.font {
+                font-family: "Noto Sans TC", sans-serif;
+              }
+
+              .disableBtn {
+                pointer-events: none;
+              }
+              `;
 const template = `  <div>
                      <div class="row d-flex justify-content-center mt-5">
                        <div class="col-6">
@@ -26,12 +34,19 @@ const template = `  <div>
                        <div class="row d-flex justify-content-center mt-5 comment-box"></div>
                        <button type="button" class="btn btn-primary more">載入更多</button>
                      </div>`;
-                  
+
+function initCSS() {
+  const StyleElement = document.createElement('style');
+  StyleElement.type = 'text/css';
+  StyleElement.appendChild(document.createTextNode(css));
+  document.head.appendChild(StyleElement);
+}
 function init(options) {
   siteKey = options.siteKey;
   apiUrl = options.apiUrl;
   containerElments = $(options.container);
   containerElments.append(template);
+  initCSS();
   readMore();
   displayComments();
   $(".sendComment").click(()=> {
@@ -128,7 +143,7 @@ function postComment() {
 
 init({
   siteKey: 'john',
-  apiUrl: "http://localhost/v1-week13-board/api",
+  apiUrl: "http://localhost/v1-week13-apiboard/api",
   container: ".comment-area"
 });
 
