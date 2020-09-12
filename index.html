@@ -18,6 +18,7 @@
   <body>
     <div class="container">
       <div class="comment-area"></div>
+      <div class="comment-area1"></div>
     </div>
     <script src="./jquery-3.5.1.js"></script>
     <script
@@ -37,6 +38,11 @@
           siteKey: "john",
           apiUrl: "http://localhost/v1-week13-apiboard/api",
           container: ".comment-area",
+        });
+        commentPlugin.init({
+          siteKey: "huli",
+          apiUrl: "http://localhost/v1-week13-apiboard/api",
+          container: ".comment-area1",
         });
       });
     </script>

@@ -1,4 +1,4 @@
-const css = `.font {
+export const css = `.font {
   font-family: "Noto Sans TC", sans-serif;
 }
 
@@ -7,7 +7,7 @@ const css = `.font {
 }
 `;
 
-export function getForm(formClassName,commentsClassName) {
+export function getForm(formClassName,commentsClassName, loadMoreClassName, sendCommentClassName) {
   return `  <div>
   <div class="row d-flex justify-content-center mt-5">
     <div class="col-6">
@@ -25,7 +25,7 @@ export function getForm(formClassName,commentsClassName) {
           <label for="content" class="font">留言內容</label>
           <textarea type="text" class="form-control" id="content"></textarea>
         </div>
-        <button type="button" class="btn btn-primary font sendComment">送出</button>
+        <button type="button" class="btn btn-primary font ${sendCommentClassName}">送出</button>
       </form>
     </div>
     </div>

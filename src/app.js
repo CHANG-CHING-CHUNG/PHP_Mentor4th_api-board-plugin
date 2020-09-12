@@ -1,6 +1,4 @@
-const loadMoreClassName = `${siteKey}-more`;
-const commentsClassName = `${siteKey}-comment-box`;
-const formClassName = `${siteKey}-add-comment`;
+
 import { getComments, addComment } from './api.js';
 import {css, getLoadMoreBtn, getForm} from './template.js';
 import $ from './jquery-3.5.1.js';
@@ -8,10 +6,14 @@ let offset = 0;
 let siteKey = '';
 let apiUrl = '';
 let containerElments = null;
-
+let loadMoreClassName;
+let commentsClassName;
+let formClassName;
+let sendCommentClassName;
 
 
 function initCSS() {
+  
   const StyleElement = document.createElement('style');
   StyleElement.type = 'text/css';
   StyleElement.appendChild(document.createTextNode(css));
@@ -20,13 +22,17 @@ function initCSS() {
 export function init(options) {
   siteKey = options.siteKey;
   apiUrl = options.apiUrl;
+  loadMoreClassName = `${siteKey}-more`;
+  commentsClassName = `${siteKey}-comment-box`;
+  formClassName = `${siteKey}-add-comment`;
+  sendCommentClassName = `${siteKey}-sendComment`;
   containerElments = $(options.container);
-  containerElments.append(getForm(formClassName,commentsClassName));
+  containerElments.append(getForm(formClassName,commentsClassName,loadMoreClassName, sendCommentClassName));
   initCSS();
   readMore();
   displayComments();
-  $(".sendComment").click(()=> {
-    $(".sendComment").addClass("disableBtn");
+  $(`.${sendCommentClassName}`).click(()=> {
+    $(`.${sendCommentClassName}`).addClass("disableBtn");
     if (!checkSpace()) {
       postComment();
     }
@@ -38,8 +44,8 @@ function checkSpace() {
   if (alert) {
     alert.remove();
   }
-  const nickname = $("#nickname").val();
-  const content = $("#content").val();
+  const nickname = $(`.${formClassName} #nickname`).val();
+  const content = $(`.${formClassName} #content`).val();
   const template = `<div class="alert alert-danger" role="alert">
                       資料不齊全
                     </div>`
@@ -97,6 +103,7 @@ function postComment() {
     content: content,
     site_key: siteKey
   };
+  console.log(data)
   addComment(apiUrl, data, () => {
     const Rbtn = $(`.${loadMoreClassName}`);
     if (!Rbtn.length) {
@@ -108,7 +115,7 @@ function postComment() {
     offset = 0;
     displayComments();
     setTimeout(()=> {
-      $(".sendComment").removeClass("disableBtn");
+      $(`.${sendCommentClassName}`).removeClass("disableBtn");
     },3000)
   })
 }
