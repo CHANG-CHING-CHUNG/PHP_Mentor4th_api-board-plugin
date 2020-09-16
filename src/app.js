@@ -33,6 +33,10 @@ export function init(options) {
     $(`.${sendCommentClassName}`).addClass("disableBtn");
     if (!checkSpace()) {
       postComment();
+    } else {
+      setTimeout(()=> {
+        $(`.${sendCommentClassName}`).removeClass("disableBtn");
+      },3000)
     }
   });
   
@@ -44,7 +48,7 @@ export function init(options) {
     document.head.appendChild(StyleElement);
   }
   function checkSpace() {
-    const alert = $(".alert-danger");
+    const alert = $(`${options.container} .alert-danger`);
     if (alert) {
       alert.remove();
     }
@@ -54,7 +58,7 @@ export function init(options) {
                         資料不齊全
                       </div>`
     if (nickname == "" || content == "") {
-      $(template).insertBefore( "form" );
+      $(template).insertBefore( `${options.container} form` );
       return true;
     } else {
       return false;
